@@ -260,7 +260,8 @@ class KubernetesPodOperator(BaseOperator):  # pylint: disable=too-many-instance-
             if self.do_xcom_push:
                 return result
         except AirflowException as ex:
-            raise AirflowException('Pod Launching failed: {error}'.format(error=ex))
+            raise AirflowException('Pod Launching failed: {error}\n'
+                                   'result:{pod}'.format(error=ex, pod=result))
 
     def _set_resources(self, resources):
         return Resources(**resources) if resources else Resources()
